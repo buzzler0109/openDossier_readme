@@ -135,6 +135,12 @@ If you need custom prompts:
 - CORS: enable CORS on your webhook reverse-proxy (OPTIONS, correct origins/headers).
 - Remotely Save not syncing: verify S3 credentials, region/endpoint, and run a manual sync.
 
+### Short summary:
+- Installed Copilot + Remotely Save
+- Remotely Save syncs vault with S3
+- Added two OpenAI-format custom models in Copilot pointing at n8n webhooks
+- Chat or context actions forward content to n8n; outputs sync back via S3 
+
 --- 
 
 ## Workflow Descriptions for n8n OSINT Investigations
@@ -169,8 +175,3 @@ If you need custom prompts:
 - **Error Handling**: Continues on errors; auto-fixes JSON schemas.
 - **Enhancements**: Persists “as much useful info as possible”; deeper entity suggestions; S3 integration for storage.
 
-Short summary:
-- Installed Copilot + Remotely Save
-- Remotely Save syncs vault with S3
-- Added two OpenAI-format custom models in Copilot pointing at n8n webhooks
-- Chat or context actions forward content to n8n; outputs sync back via S3 
