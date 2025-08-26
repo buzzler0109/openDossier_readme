@@ -137,6 +137,38 @@ If you need custom prompts:
 
 --- 
 
+## Workflow Descriptions for n8n OSINT Investigations
+
+### Workflow 1: OpenDossier report search
+**Description**: Processes OSINT queries via webhook, uses AI agents to parse entities and relationships, performs web searches and API conversions, and generates structured due diligence reports (sanctions, risks, affiliations). Outputs directly (no file storage).
+
+- **Input Handling**: Receives OpenAI-like chat completions via webhook; remaps to OSINT query format.
+- **AI Agents**:
+  - Plan the research: entity parsing and scope definition
+  - Research agent: data gathering (WebSearchTool, API_Converter)
+  - Analytics Agent: synthesis into comprehensive report
+- **Tools Integration**:
+  - WebSearchTool (Tavily API)
+  - API_Converter (Aleph data conversion)
+  - Custom AI tools for filtered analysis (sanctions, PEP checks)
+- **Output**: JSON-formatted reports streamed via SSE, sections include sanctions, background, risks; no S3 storage.
+- **Error Handling**: Continues on errors in HTTP requests/tools for robustness.
+- **Limitations**: Up to 10 entities per analysis; emphasis on RU-related data (INN, Myrotvorets).
+
+### Workflow 2: OpenDossier context
+**Description**: Handles OSINT context queries, extracts entities (excluding main entity), gathers data via AI/tools, produces detailed JSON reports, and saves them to S3 for Obsidian sync (Remotely Save).
+
+- **Input Handling**: Webhook-based; remaps queries; context-aware entity extraction (exclude primary entity).
+- **AI Agents**:
+  - Plan the research
+  - Research agent (mandatory API_Converter + AI tools)
+  - Analytics Agent (report generation)
+  - Suggestions Agent (follow-up entity recommendations)
+- **Tools Integration**: WebSearchTool, API_Converter, entity extraction tools; outputs structured JSON (general info, sanctions, risks).
+- **Output & Storage**: Generates reports, uploads to S3 via “Upload a file” node, streams confirmation; designed for Obsidian synchronization.
+- **Error Handling**: Continues on errors; auto-fixes JSON schemas.
+- **Enhancements**: Persists “as much useful info as possible”; deeper entity suggestions; S3 integration for storage.
+
 Short summary:
 - Installed Copilot + Remotely Save
 - Remotely Save syncs vault with S3
